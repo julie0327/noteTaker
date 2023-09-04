@@ -11,3 +11,4 @@ As a small business owner, I want to be able to write and save notes so that I c
 ## Deployment
 https://julie0327.github.io/note_taker/
 ![](https://github.com/julie0327/noteTaker/blob/main/img1.png)
+![](https://github.com/julie0327/noteTaker/blob/main/img2.png)
