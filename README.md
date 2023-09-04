@@ -9,3 +9,4 @@ As a small business owner, I want to be able to write and save notes so that I c
 * When I click on an existing note in the list in the left-hand column, the note appears in the right-hand column
 * I click on the Write icon in the navigation at the top of the page, and I am presented with empty fields to enter a new note title and the note’s text in the right-hand column
 ## Deployment
+https://julie0327.github.io/note_taker/
