@@ -1,27 +1,30 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const PORT = 3002;
+const PORT = 3001;
 const app = express();
-const uuid = () => {
-  Math.floor((1 + Math.random()) * 0x10000)
+const uuid = () => Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)
     .substring(1);
-};
-
-app.use(express.urlencoded({ extend: true }));
+console.log(uuid());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(express.static("public"));
 
-app.get("/notes", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/notes.html"));
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
-app.get("/api/notes", (req, res) => {
-  res.status(200).json(`${req.method} request received to get reviews`);
-  console.info(`${req.method} request received to get reviews`);
-});
+app.get('/api/notes', (req, res) => { 
+  fs.readFile('./db/db.json', 'utf8', (err, data) => { 
+    if (err) { 
+      console.log(err);
+      return
+    }
+    res.json(JSON.parse(data).slice(1))
+  })
+})
+
 app.post("/api/notes", (req, res) => {
   console.info(`${req.method} request received to add a review`);
   const { title, text } = req.body;
