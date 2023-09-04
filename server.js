@@ -6,14 +6,10 @@ const app = express();
 const uuid = () => Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)
     .substring(1);
-console.log(uuid());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-
-app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/notes.html'));
-});
 
 app.get('/api/notes', (req, res) => { 
   fs.readFile('./db/db.json', 'utf8', (err, data) => { 
@@ -24,6 +20,16 @@ app.get('/api/notes', (req, res) => {
     res.json(JSON.parse(data).slice(1))
   })
 })
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
 
 app.post("/api/notes", (req, res) => {
   console.info(`${req.method} request received to add a review`);
@@ -37,7 +43,7 @@ app.post("/api/notes", (req, res) => {
     fs.readFile("./db/db.json", "utf8", (err, data) => {
       if (err) {
         console.log(err);
-      } else {
+      } else {        
         const parsedNote = JSON.parse(data);
         parsedNote.push(newNote);
         fs.writeFile(
