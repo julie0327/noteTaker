@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const PORT = 3001;
+const PORT = process.env.PORT||3001;
 const app = express();
 const uuid = () => Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)
@@ -68,4 +68,4 @@ app.post("/api/notes", (req, res) => {
   }
 });
 
-app.listen(PORT, console.log(`Turn to http://localhost:${PORT}`));
+app.listen(PORT, console.log(`Turn to http://127.0.0.1:${PORT}`));
